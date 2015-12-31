@@ -8,12 +8,11 @@
  * @package Dashboard
  * @author Uncle Cheese <unclecheese@leftandmain.com>
  */
-class DashboardSiteConfig extends DataExtension {
-	
+class DashboardSiteConfig extends DataExtension
+{
+    
 
-	private static $has_many = array (
-		'DashboardPanels' => 'DashboardPanel'
-	);
-
-
+    private static $has_many = array(
+        'DashboardPanels' => 'DashboardPanel'
+    );
 }

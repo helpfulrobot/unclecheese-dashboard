@@ -7,62 +7,65 @@
  * @package Dashboard
  * @author Uncle Cheese <unclecheese@leftandmain.com>
  */
-class DashboardRecentEditsPanel extends DashboardPanel {
+class DashboardRecentEditsPanel extends DashboardPanel
+{
 
-	
-	private static $db = array (
-		'Count' => 'Int'
-	);
-
-
-
-	private static $defaults = array (
-		'Count' => 10
-	);
-
-
-	private static $icon = "dashboard/images/recent-edits.png";
-
-
-	private static $priority = 10;
-
-
-	public function getLabel() {
-		return _t('RecentEdits.LABEL','Recent Edits');
-	}
+    
+    private static $db = array(
+        'Count' => 'Int'
+    );
 
 
 
-	public function getDescription() {
-		return _t('RecentEdits.DESCRIPTION','Shows a linked list of recently edited pages');
-	}
+    private static $defaults = array(
+        'Count' => 10
+    );
+
+
+    private static $icon = "dashboard/images/recent-edits.png";
+
+
+    private static $priority = 10;
+
+
+    public function getLabel()
+    {
+        return _t('RecentEdits.LABEL', 'Recent Edits');
+    }
 
 
 
-	public function getConfiguration() {
-		$fields = parent::getConfiguration();
-		$fields->push(TextField::create("Count",_t('DashboardRecentEdits.COUNT','Number of pages to display')));
-		return $fields;
-	}
+    public function getDescription()
+    {
+        return _t('RecentEdits.DESCRIPTION', 'Shows a linked list of recently edited pages');
+    }
 
 
 
-	/**
-	 * Gets the recent edited pages, limited to a user provided number of records
-	 *
-	 * @return ArrayList
-	 */
-	public function RecentEdits() {
-		$records = SiteTree::get()->sort("LastEdited DESC")->limit($this->Count);
-		$set = ArrayList::create(array());
-		foreach($records as $r) {
-			$set->push(ArrayData::create(array(
-				'EditLink' => Injector::inst()->get("CMSPagesController")->Link("edit/show/{$r->ID}"),
-				'Title' => $r->Title
-			)));
-		}
-		return $set;
-	}
+    public function getConfiguration()
+    {
+        $fields = parent::getConfiguration();
+        $fields->push(TextField::create("Count", _t('DashboardRecentEdits.COUNT', 'Number of pages to display')));
+        return $fields;
+    }
 
 
+
+    /**
+     * Gets the recent edited pages, limited to a user provided number of records
+     *
+     * @return ArrayList
+     */
+    public function RecentEdits()
+    {
+        $records = SiteTree::get()->sort("LastEdited DESC")->limit($this->Count);
+        $set = ArrayList::create(array());
+        foreach ($records as $r) {
+            $set->push(ArrayData::create(array(
+                'EditLink' => Injector::inst()->get("CMSPagesController")->Link("edit/show/{$r->ID}"),
+                'Title' => $r->Title
+            )));
+        }
+        return $set;
+    }
 }
